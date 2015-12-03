@@ -1,0 +1,32 @@
+<style>
+	.ng-isolate-scope {
+		display: none;
+	}
+	th {
+		text-align: left !important;
+	}
+</style>
+
+<button ng-click="newOrder()" class="btn btn-default btn-xs">NEW</button>
+
+<table ng-table="orderTable" class="table table-striped table-hover">
+	<tbody>
+		<tr ng-repeat="row in $data">
+			<td data-title="'ID'">{{row.id}}</td>
+			<td data-title="'Date'">{{row.date}}</td>
+			<td data-title="'Name'">
+				<span ng-hide="orderEdit == $index">{{row.name}}</span>
+				<input ng-model="row.name" ng-show="orderEdit == $index" ng-click="$event.stopPropagation();" type="text" class="form-control input-sm" />
+			</td>
+			<td data-title="'Description'">
+				<span ng-hide="orderEdit == $index">{{row.description}}</span>
+				<input ng-model="row.description" ng-show="orderEdit == $index" ng-click="$event.stopPropagation();" type="text" class="form-control input-sm" />
+			</td>
+			<td>
+				<button ng-click="orderEdit = $index; $event.stopPropagation();" ng-hide="orderEdit == $index" class="btn btn-default btn-xs">EDIT</button>
+				<button ng-click="upsertOrder(row); $event.stopPropagation();" ng-show="orderEdit == $index" class="btn btn-success btn-xs">SAVE</button>
+				<button ng-click="orderEdit = null; orderTable.reload(); $event.stopPropagation();" ng-show="orderEdit == $index" class="btn btn-warning btn-xs">CANCEL</button>
+			</td>
+		</tr>
+	</tbody>
+</table>

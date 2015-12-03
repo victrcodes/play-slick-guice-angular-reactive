@@ -1,0 +1,7 @@
+GET        /                    @controllers.AppController.index
+
+GET        /data/order          @controllers.OrderController.getOrders
+PUT        /data/order          @controllers.OrderController.upsertOrder
+
+GET        /assets/*file        @controllers.Assets.versioned(path="/public", file: Asset)
+GET        /*any                @controllers.AppController.angular(any)
