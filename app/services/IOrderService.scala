@@ -1,5 +1,7 @@
 package services
 
+import javax.inject.Inject
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import com.google.inject.ImplementedBy
@@ -7,7 +9,6 @@ import db.Tables._
 import maps.Converters._
 import maps.OrderMap
 import org.joda.time.DateTime
-import play.api.Play
 import play.api.db.slick.DatabaseConfigProvider
 import slick.driver.JdbcProfile
 
@@ -20,9 +21,9 @@ trait IOrderService {
 
 }
 
-class OrderService extends IOrderService {
+class OrderService @Inject() (dbConfigProvider: DatabaseConfigProvider) extends IOrderService {
 
-	val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
+	val dbConfig = dbConfigProvider.get[JdbcProfile]
 	val db = dbConfig.db
 	import dbConfig.driver.api._
 
