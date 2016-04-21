@@ -4,7 +4,7 @@ import sbt.Keys._
 
 object Build extends Build {
 
-	val appScalaVersion = "2.11.7"
+	val appScalaVersion = "2.11.8"
 
 	lazy val main = Project("demo", base = file(".")).enablePlugins(PlayScala).settings(
 		scalaVersion := appScalaVersion,
