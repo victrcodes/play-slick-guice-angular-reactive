@@ -1,17 +1,29 @@
 package services
 
-import scala.concurrent.Await
-import scala.concurrent.duration._
-import scala.language.postfixOps
-import fixtures.ServiceSpec
+import javax.inject.Inject
+
+import com.typesafe.config.ConfigFactory
 import maps.Maps._
 import maps.OrderMap
 import org.joda.time.DateTime
+import org.scalatestplus.play.{OneAppPerSuite, PlaySpec}
+import play.api.db.slick.DatabaseConfigProvider
+import play.api.test.FakeApplication
+import slick.driver.JdbcProfile
 
-class OrderServiceSpec extends ServiceSpec {
+import scala.concurrent.Await
+import scala.concurrent.duration._
+import scala.language.postfixOps
+
+class OrderServiceSpec @Inject() (dbConfigProvider: DatabaseConfigProvider) extends PlaySpec with OneAppPerSuite {
+
+	val conf = ConfigFactory.load
+	implicit override lazy val app = FakeApplication()
+	lazy val dbConfig = dbConfigProvider.get[JdbcProfile]
+	lazy val db = dbConfig.db
+	lazy val service = app.injector.instanceOf(classOf[IOrderService])
 
 	import dbConfig.driver.api._
-	lazy val service = app.injector.instanceOf(classOf[IOrderService])
 
 	"getOrders() method" should {
 		"return the list of orders" in {

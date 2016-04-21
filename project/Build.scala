@@ -9,13 +9,13 @@ object Build extends Build {
 	lazy val main = Project("demo", base = file(".")).enablePlugins(PlayScala).settings(
 		scalaVersion := appScalaVersion,
 		libraryDependencies ++= List(
-			"com.typesafe.slick" %% "slick" % "3.1.0",
-			"com.typesafe.slick" %% "slick-codegen" % "3.1.0",
-			"com.typesafe.play" %% "play-slick" % "1.1.1",
-			"com.typesafe.play" %% "play-slick-evolutions" % "1.1.1",
+			"com.typesafe.slick" %% "slick" % "3.1.1",
+			"com.typesafe.slick" %% "slick-codegen" % "3.1.1",
+			"com.typesafe.play" %% "play-slick" % "2.0.0",
+			"com.typesafe.play" %% "play-slick-evolutions" % "2.0.0",
 			"com.h2database" % "h2" % "1.4.190",
 			"org.scalatest" %% "scalatest" % "2.2.1" % "test",
-			"org.scalatestplus" %% "play" % "1.4.0-M3" % "test",
+			"org.scalatestplus" %% "play" % "1.4.0" % "test",
 			"org.mockito" % "mockito-all" % "1.10.19"
 		),
 		slick <<= slickCodeGenTask/*,
